@@ -1,4 +1,5 @@
-FROM httpd:latest
+FROM nginx
 MAINTAINER Josue Valencia
+WORKDIR html/
 
-copy ./index.html /usr/local/apache2/htdocs
+COPY html/ /usr/share/nginx/html
