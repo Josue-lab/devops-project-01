@@ -35,9 +35,17 @@ pipeline {
                 }
             }
         }
-        stage('Deploy image and Remove Unused  image') {
+         stage('Clean docker containers'){
             steps{
-                sh "docker run --rm -d -p 80:80 --name devops $imagename:$BUILD_NUMBER"
+                script{
+                
+                    def doc_containers = sh(returnStdout: true, script: 'docker container ps -aq').replaceAll("\n", " ") 
+                    if (doc_containers) {
+                        sh "docker stop ${doc_containers}"
+                        sh "docker rm ${doc_containers}"
+                    }
+                    
+                }
             }
         }
     }
