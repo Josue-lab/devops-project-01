@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-         stage('Clean docker containers'){
+        stage('Clean docker containers'){
             steps{
                 script{
                 
@@ -43,10 +43,14 @@ pipeline {
                     if (doc_containers) {
                         sh "docker stop ${doc_containers}"
                         sh "docker rm ${doc_containers}"
-                    }
-                    
+                    }                   
                 }
             }
         }
+        stage('Deploy image and Remove Unused  image') {
+            steps{
+                sh "docker run -d -p 80:80 --name devops $imagename:$BUILD_NUMBER"
+            }
+        }        
     }
 }
