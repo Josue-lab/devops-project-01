@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        imagename = "josue19/devops-certificate"
+        imagename = "josue19/devops-certificate-practice-1"
         registryCredential = 'docker_hub'
         dockerImage = ''
      }
